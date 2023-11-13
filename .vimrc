@@ -17,3 +17,6 @@ set tags=../tags
 set expandtab
 set tabstop=4
 set shiftwidth=4
+
+" On Debian based systems you may need:
+" sudo apt install vim-gui-common vim-runtime
