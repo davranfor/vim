@@ -41,7 +41,7 @@ map z :Ex<CR>
 com! -nargs=1 F lvimgrep /<args>/j src/*.c include/*.h
 
 " Open the quickfix window directly after searching 
-augroup mysearch 
+augroup mysearch
     autocmd!
     autocmd QuickFixCmdPost [^l]* cwindow
     autocmd QuickFixCmdPost l*    lwindow
