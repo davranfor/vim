@@ -2,6 +2,8 @@ syntax on
 
 " Disable matching parenthesis highlighting
 let g:loaded_matchparen=1
+" Compound literals in some expressions are falsely highlighted as errors
+let c_no_curly_error=1
 
 " Colors at /usr/share/vim/vim90/colors
 colorscheme desert
@@ -27,18 +29,27 @@ set tabstop=4
 set shiftwidth=4
 
 " Deactivate macros and use q to exit
+" The autocmd part prevents a delay when pressing q in netrw
+autocmd FileType netrw setlocal timeoutlen=0
 map q :q<CR>
+
+" Explore with netrw
+map z :Ex<CR>
 
 " Search a text within src and include folder
 " j = do not jump to the first match
 com! -nargs=1 F lvimgrep /<args>/j src/*.c include/*.h
 
 " Open the quickfix window directly after searching 
-augroup mysearch
+augroup mysearch 
     autocmd!
     autocmd QuickFixCmdPost [^l]* cwindow
     autocmd QuickFixCmdPost l*    lwindow
 augroup END
+
+" Configure 'Enter' key to do search and then 'CTRL-w + w' in quickfix
+" in order to (re)set the focus on the quickfix window
+autocmd FileType qf nnoremap <buffer> <CR> <CR> <C-w>w
 
 " Map intro to execute a command with the contents of the current line
 " (Exit vi environment)
