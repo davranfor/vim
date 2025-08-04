@@ -28,6 +28,9 @@ set expandtab
 set tabstop=4
 set shiftwidth=4
 
+autocmd FileType html,css,javascript,json setlocal expandtab tabstop=2 shiftwidth=2
+autocmd FileType make setlocal noexpandtab tabstop=8 shiftwidth=8
+
 " Deactivate macros and use q to exit
 " The autocmd part prevents a delay when pressing q in netrw
 autocmd FileType netrw setlocal timeoutlen=0
@@ -36,8 +39,12 @@ map q :q<CR>
 " Explore with netrw
 map z :Ex<CR>
 
-" Copy the current line to the clipboard
-command! C silent .w !pbcopy
+" Go to middle of line
+map m :call cursor(0, len(getline('.'))/2)<CR>
+
+" Copy the current selection to the clipboard ,y
+let mapleader = ","
+vnoremap <Leader>y :silent w !pbcopy<CR>
 
 " Search a text within src and include folder
 " j = do not jump to the first match
