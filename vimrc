@@ -34,17 +34,16 @@ autocmd FileType make setlocal noexpandtab tabstop=8 shiftwidth=8
 " Deactivate macros and use q to exit
 " The autocmd part prevents a delay when pressing q in netrw
 autocmd FileType netrw setlocal timeoutlen=0
-map q :q<CR>
+nnoremap q :q<CR>
 
 " Explore with netrw
-map z :Ex<CR>
+nnoremap z :Ex<CR>
 
-" Go to middle of line
-map m :call cursor(0, len(getline('.'))/2)<CR>
+" Jump to middle of line
+" nnoremap <silent> m :call cursor(0, len(getline('.'))/2)<CR>
 
-" Copy the current selection to the clipboard ,y
-let mapleader = ","
-vnoremap <Leader>y :silent w !pbcopy<CR>
+" Jump to middle of line ignoring indent spaces
+" nnoremap <silent> m :call cursor(0, (indent('.') + virtcol('$') - 1) / 2)<CR>
 
 " Search a text within src and include folder
 " j = do not jump to the first match
@@ -60,6 +59,12 @@ augroup END
 " Configure 'Enter' key to do search and then 'CTRL-w + w' in quickfix
 " in order to (re)set the focus on the quickfix window
 autocmd FileType qf nnoremap <buffer> <CR> <CR> <C-w>w
+
+" Configure 'Esc' key to return to the previous buffer (file) in netrw
+augroup NetrwCustomMappings
+  autocmd!
+  autocmd FileType netrw nnoremap <buffer> <Esc> :bprevious<CR>
+augroup END
 
 " Map intro to execute a command with the contents of the current line
 " (Exit vi environment)
